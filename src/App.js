@@ -137,7 +137,7 @@ class App extends React.Component {
   render_start() {
     return (
       <div className='container test-start'>
-        <h2>测测你是</h2>
+        <h2>测测你是纽约的</h2>
         <h1>哪种食物</h1>
         <button
           type='button'
@@ -146,7 +146,7 @@ class App extends React.Component {
             this.setState({ state: 'testing' });
           }}
         >
-          开始测试
+          点击开始
         </button>
       </div>
     );
