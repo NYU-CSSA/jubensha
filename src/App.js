@@ -4,20 +4,16 @@ import Questions from './Questions';
 
 const questions = Questions;
 
-function next_question(current_question, answer_num) {
-  return questions[current_question][2][answer_num];
-}
-
 function get_random_of(slash_separated_string) {
   let items = slash_separated_string.split('/');
-  return items[Math.floor(Math.random() * items.length)];
+  return items[Math.floor((Math.random() * items.length))];
 }
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       current_question: 1,
+      score:0,
       answers: [],
       state: 'start',
       rejected: false,
@@ -29,30 +25,25 @@ class App extends React.Component {
     };
   }
 
-  handle_answer(ans_num) {
-    let answers = this.state.answers.slice();
-    answers.push({
-      question_num: this.state.current_question,
-      ans_num: ans_num,
-      ans: questions[this.state.current_question][1][ans_num],
-    });
-    let next_ques = next_question(this.state.current_question, ans_num);
-    if (next_ques === null) {
+  handle_answer(ans_idx) {
+    const ans_score = questions[this.state.current_question][2][ans_idx];
+    const score = this.state.score+ans_score;
+    this.setState({score});
+
+    const current_question = this.state.current_question+1;
+
+    if (current_question> 7) {
       this.setState({
-        answers: answers,
         state: 'invitation',
       });
     } else {
       this.setState({
-        answers: answers,
-        current_question: next_ques,
+        current_question,
       });
     }
-    // console.log(answers)
   }
 
   render_ans(ans_string, index) {
-    let this_question = questions[this.state.current_question];
     return (
       <div className='row' key={index}>
         <div className='ans-btn-group'>
@@ -64,21 +55,6 @@ class App extends React.Component {
             }}
           >
             {ans_string}
-            {this_question.length >= 4 ? (
-              <div className='image-div'>
-                <img
-                  src={
-                    process.env.PUBLIC_URL +
-                    '/images/' +
-                    this_question[3][index]
-                  }
-                  width='90%'
-                  alt=''
-                />
-              </div>
-            ) : (
-              ''
-            )}
           </button>
         </div>
       </div>
@@ -89,22 +65,14 @@ class App extends React.Component {
     return (
       <div className='invitation'>
         <div className='container'>
-          {/* <div className="card" style={{"width": "18rem"}}> */}
           <div className='card invitation'>
             <div className='card-body'>
               <div className='invitation-title'>
-                <p className='card-title invitation-title'>剧本杀</p>
-                <p className='invitation-subtitle'>
-                  找到你在NYU兴趣相同的好朋友
-                </p>
+                <p className='card-title invitation-title'>huodongmingcheng</p>
               </div>
               <div className='invitation-text'>
                 <p className='card-text'>
-                  NYUCSSA 诚意推出全新线上活动 2.15-2.22 『心动指南针』！
-                  这是聚集脑力风暴的智者们的天堂，xxx（还没想好）
-                </p>
-                <p className='invitation-note'>
-                  注：若匹配成功，工作人员将于x月x日联系您
+                  huodongjieshao
                 </p>
               </div>
               <div className='answers'>
@@ -112,19 +80,10 @@ class App extends React.Component {
                   type='button'
                   className='btn btn-primary inv-btn'
                   onClick={() => {
-                    this.setState({ rejected: false, state: 'form' });
-                  }}
-                >
-                  立即报名
-                </button>
-                <button
-                  type='button'
-                  className='btn btn-primary inv-btn'
-                  onClick={() => {
                     this.setState({ rejected: true, state: 'finished' });
                   }}
                 >
-                  先看结果再说
+                  cha看结果
                 </button>
               </div>
             </div>
@@ -302,6 +261,7 @@ class App extends React.Component {
   }
 
   render_finished() {
+    {console.log(this.state.score)}
     return (
       <div className='container test-result'>
         <h3>我的NYU称号：</h3>
@@ -340,13 +300,11 @@ class App extends React.Component {
   render_question() {
     return (
       <div className='container'>
-        {/* <div className="card" style={{"width": "18rem"}}> */}
         <div className='card question'>
           <div className='card-body'>
             <h5 className='card-title'>
               {questions[this.state.current_question][0]}
             </h5>
-            {/* <p className="card-text">这里有一些问题描述不知道说些什么好如果你不需要这个问题描述那我也可以把它关掉。</p> */}
             <div className='answers'>
               {questions[this.state.current_question][1].map(
                 this.render_ans.bind(this),
@@ -400,11 +358,8 @@ class App extends React.Component {
             }}
           >
             <option value='' disabled hidden>
-              请选择
-            </option>
-            <option value='male'>男</option>
-            <option value='female'>女</option>
-            <option value='notsay'>我不想说</option>
+              请选择render_finished
+              </option>
           </select>
         </div>
         <div className='form-group'>
