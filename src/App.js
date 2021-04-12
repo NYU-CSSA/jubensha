@@ -1,46 +1,36 @@
 import React from 'react';
 import './App.css';
-import Questions from './Questions';
+import { questions, results, plays } from './constants';
 
-const questions = Questions;
-
-function get_random_of(slash_separated_string) {
-  let items = slash_separated_string.split('/');
-  return items[Math.floor((Math.random() * items.length))];
-}
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       current_question: 1,
-      score:0,
-      answers: [],
+      score: 0,
       state: 'start',
-      rejected: false,
       name: '',
       email: '',
       sex: '',
       wechat: '',
-      my_title: '',
+      result: {},
     };
   }
 
   handle_answer(ans_idx) {
     const ans_score = questions[this.state.current_question][2][ans_idx];
-    const score = this.state.score+ans_score;
-    this.setState({score});
+    const score = this.state.score + ans_score;
+    this.setState({ score });
+    const current_question = this.state.current_question + 1;
 
-    const current_question = this.state.current_question+1;
-
-    if (current_question> 7) {
+    if (current_question > 7)
       this.setState({
         state: 'invitation',
       });
-    } else {
+    else
       this.setState({
         current_question,
       });
-    }
   }
 
   render_ans(ans_string, index) {
@@ -68,11 +58,11 @@ class App extends React.Component {
           <div className='card invitation'>
             <div className='card-body'>
               <div className='invitation-title'>
-                <p className='card-title invitation-title'>huodongmingcheng</p>
+                <p className='card-title invitation-title'>活动名称</p>
               </div>
               <div className='invitation-text'>
                 <p className='card-text'>
-                  huodongjieshao
+                  这是聚集脑力风暴的智者们的天堂，xxx（还没想好）
                 </p>
               </div>
               <div className='answers'>
@@ -80,10 +70,10 @@ class App extends React.Component {
                   type='button'
                   className='btn btn-primary inv-btn'
                   onClick={() => {
-                    this.setState({ rejected: true, state: 'finished' });
+                    this.setState({ state: 'finished' });
                   }}
                 >
-                  cha看结果
+                  查看结果
                 </button>
               </div>
             </div>
@@ -111,85 +101,29 @@ class App extends React.Component {
     );
   }
 
-  generate_title() {
-    if (this.state.my_title !== '') {
-      return this.state.my_title;
-    }
-    let answers_map = {};
-    for (let i in this.state.answers) {
-      let answer = this.state.answers[i];
-      answers_map[answer['question_num']] = answer;
-    }
-    // console.log(answers_map);
-    let my_title = get_random_of('盘踞/占领/聚居/扎根');
-    my_title += answers_map[1]['ans'].split(' ')[1];
-    // 3A精致生活 3B脑力社交 3C囤积脂肪 3D咚次哒次 4A GPA4.0 4B长期咸鱼 4C沉迷游戏
-    if (3 in answers_map) {
-      switch (answers_map[3]['ans_num']) {
-        case 0:
-          my_title += '精致生活';
-          break;
-        case 1:
-          my_title += '脑力社交';
-          break;
-        case 2:
-          my_title += '囤积脂肪';
-          break;
-        case 3:
-          my_title += '咚次哒次';
-          break;
-        default:
-          console.log(answers_map);
-      }
-    } else if (4 in answers_map) {
-      switch (answers_map[4]['ans_num']) {
-        case 0:
-          my_title += 'GPA4.0';
-          break;
-        case 1:
-          my_title += '长期咸鱼';
-          break;
-        case 2:
-          my_title += '沉迷游戏';
-          break;
-        default:
-          console.log(answers_map);
-      }
-    } else {
-      console.log(answers_map);
-    }
-    my_title += '的';
-    switch (answers_map[5]['ans_num']) {
-      case 0:
-        my_title += '波霸';
+  generate_result() {
+    let result = {};
+    const { score } = this.state;
+    switch (score) {
+      case score >= 29 && score <= 35:
+        result = results[0];
         break;
-      case 1:
-        my_title += '中毒';
+      case score >= 23 && score <= 38:
+        result = results[1];
         break;
-      case 2:
-        my_title += '健康';
+      case score >= 17 && score <= 22:
+        result = results[2];
         break;
-      case 3:
-        my_title += '养生';
+      case score >= 10 && score <= 16:
+        result = results[3];
+        break;
+      case score >= 5 && score <= 9:
+        result = results[4];
         break;
       default:
-        console.log(answers_map);
+        break;
     }
-    switch (answers_map[10]['ans_num']) {
-      case 0:
-        my_title += get_random_of('萌物/小奶娃/宝贝');
-        break;
-      case 1:
-        my_title += get_random_of('大佬/老板/总裁/一哥');
-        break;
-      case 2:
-        my_title += get_random_of('沙雕/尤物');
-        break;
-      default:
-        console.log(answers_map);
-    }
-    this.setState({ my_title: my_title });
-    return my_title;
+    this.setState({ result });
   }
 
   send_result() {
@@ -261,38 +195,39 @@ class App extends React.Component {
   }
 
   render_finished() {
-    {console.log(this.state.score)}
+    this.generate_result();
     return (
-      <div className='container test-result'>
-        <h3>我的NYU称号：</h3>
-        <h1 className='mytitle'>{this.generate_title()}</h1>
-        {/* <p>({this.state.answers.map((x) => {
-          return x.question_num + ': ' + String.fromCharCode('A'.charCodeAt(0) + x.ans_num) + ', '
-        })})</p> */}
-        {this.state.rejected ? (
-          <button
-            type='button'
-            className='btn btn-primary'
-            onClick={() => {
-              this.setState({ state: 'invitation' });
-            }}
-          >
-            报名参加『心动指南针』
-          </button>
-        ) : (
-          ''
-        )}
-        <br />
-        <img
-          width='120px'
-          alt=''
-          src={process.env.PUBLIC_URL + '/test-qrcode.png'}
-        />
-        <p className='screenshot-text'>
-          截图至朋友圈
+      <div className='container'>
+        <div className='container test-result'>
+          <h3>与您最符合的食物是：</h3>
+          <h1 className='mytitle'>{this.state.result.food}</h1>
+          <h4>推荐餐厅：</h4>
+          <span>
+            {this.state.result.place.map((val, i) => (
+              <h2 key={i}>{val}</h2>
+            ))}
+          </span>
+          <div className='desc'>{this.result.desc}</div>
           <br />
-          扫码一起来测"我的NYU称号"
-        </p>
+        </div>
+        <div className='container roles'>
+          <h3>你最适合的角色：</h3>
+          {plays.map((name, i) => (
+            <div key={i}>
+              <h2>{`剧本${i + 1}：${name}`}</h2>
+              <h5>{this.state.result.roles[i * 2]}</h5>
+              <h5>{this.state.result.roles[i * 2 + 1]}</h5>
+            </div>
+          ))}
+        </div>
+        <div className='qrcode'>
+          <div>
+            <p>扫二维码查看剧本简介</p>
+          </div>
+          <div>
+            <p>扫二维码立即报名活动</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -359,7 +294,7 @@ class App extends React.Component {
           >
             <option value='' disabled hidden>
               请选择render_finished
-              </option>
+            </option>
           </select>
         </div>
         <div className='form-group'>
