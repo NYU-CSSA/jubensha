@@ -117,13 +117,12 @@ class App extends React.Component {
       case score >= 10 && score <= 16:
         result = results[3];
         break;
-      case score >= 5 && score <= 9:
-        result = results[4];
-        break;
       default:
-        break;
+        //  score >= 5 && score <= 9
+        result = results[4];
     }
     this.setState({ result });
+    return result;
   }
 
   send_result() {
