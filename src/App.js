@@ -9,11 +9,6 @@ class App extends React.Component {
       current_question: 1,
       score: 0,
       state: 'start',
-      name: '',
-      email: '',
-      sex: '',
-      wechat: '',
-      result: {},
     };
   }
 
@@ -102,27 +97,17 @@ class App extends React.Component {
   }
 
   generate_result() {
-    let result = {};
     const { score } = this.state;
-    switch (score) {
-      case score >= 29 && score <= 35:
-        result = results[0];
-        break;
-      case score >= 23 && score <= 38:
-        result = results[1];
-        break;
-      case score >= 17 && score <= 22:
-        result = results[2];
-        break;
-      case score >= 10 && score <= 16:
-        result = results[3];
-        break;
-      default:
-        //  score >= 5 && score <= 9
-        result = results[4];
-    }
-    this.setState({ result });
-    return result;
+      if (score >= 29 && score <= 35)
+        return results[0];
+      else if( score >= 23 && score <= 28)
+        return  results[1];
+      else if(score >= 17 && score <= 22)
+        return results[2];
+      else if (score >= 10 && score <= 16)
+        return  results[3];
+      else
+        return results[4];
   }
 
   send_result() {
@@ -194,19 +179,16 @@ class App extends React.Component {
   }
 
   render_finished() {
-    this.generate_result();
+    const result=this.generate_result();
+    const places = result.place.reduce((prev,cur)=>prev=prev + ", "+cur)
     return (
       <div className='container'>
         <div className='container test-result'>
           <h3>与您最符合的食物是：</h3>
-          <h1 className='mytitle'>{this.state.result.food}</h1>
+          <h1 className='mytitle'>{result.food}</h1>
           <h4>推荐餐厅：</h4>
-          <span>
-            {this.state.result.place.map((val, i) => (
-              <h2 key={i}>{val}</h2>
-            ))}
-          </span>
-          <div className='desc'>{this.result.desc}</div>
+          <h2 >{places}</h2>
+          <div className='desc'>{result.desc}</div>
           <br />
         </div>
         <div className='container roles'>
@@ -214,10 +196,10 @@ class App extends React.Component {
           {plays.map((name, i) => (
             <div key={i}>
               <h2>{`剧本${i + 1}：${name}`}</h2>
-              <h5>{this.state.result.roles[i * 2]}</h5>
-              <h5>{this.state.result.roles[i * 2 + 1]}</h5>
+              <h5>{result.roles[i * 2]}</h5>
+              <h5>{result.roles[i * 2 + 1]}</h5>
             </div>
-          ))}
+          ))} 
         </div>
         <div className='qrcode'>
           <div>
@@ -250,75 +232,6 @@ class App extends React.Component {
     );
   }
 
-  render_form() {
-    return (
-      <div className='container form'>
-        <h1>心动指南针</h1>
-        <h5>报名表</h5>
-        <form>
-          <div className='form-group'>
-            <label htmlFor='email'>邮箱（每个NYU邮箱仅能测试一次哦～）</label>
-            <input
-              type='email'
-              className='form-control'
-              name='email'
-              placeholder='email'
-              onChange={(e) => {
-                this.setState({ email: e.target.value });
-              }}
-            />
-          </div>
-          <div className='form-group'>
-            <label htmlFor='name'>昵称</label>
-            <input
-              type='text'
-              className='form-control'
-              name='name'
-              placeholder='name'
-              onChange={(e) => {
-                this.setState({ name: e.target.value });
-              }}
-            />
-          </div>
-        </form>
-        <div className='form-group'>
-          <label htmlFor='sex'>性别</label>
-          <select
-            id='sex'
-            className='form-control'
-            defaultValue=''
-            onChange={(e) => {
-              this.setState({ sex: e.target.value });
-            }}
-          >
-            <option value='' disabled hidden>
-              请选择render_finished
-            </option>
-          </select>
-        </div>
-        <div className='form-group'>
-          <label htmlFor='wechat'>微信号</label>
-          <input
-            type='text'
-            name='wechat'
-            placeholder='wechat id'
-            className='form-control'
-            onChange={(e) => {
-              this.setState({ wechat: e.target.value });
-            }}
-          />
-        </div>
-        <button
-          className='btn'
-          onClick={() => {
-            this.send_result(true);
-          }}
-        >
-          提交
-        </button>
-      </div>
-    );
-  }
 
   render() {
     if (this.state.state === 'start') {
@@ -329,9 +242,7 @@ class App extends React.Component {
       return this.render_question();
     } else if (this.state.state === 'invitation') {
       return this.render_invitation();
-    } else {
-      return this.render_form();
-    }
+    } 
   }
 }
 
