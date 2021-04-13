@@ -107,7 +107,10 @@ class App extends React.Component {
   }
 
   generate_image() {
-    html2canvas(document.getElementById('test-result')).then(function (canvas) {
+    if(document.getElementById('canvasImg')!=null)
+      return;
+      const element = document.getElementById('test-result');
+    html2canvas(element,{ height: 900}).then(function (canvas) {
       let base64Url = canvas.toDataURL();
       const imgDiv = document.createElement('div');
       imgDiv.className = 'img-container';
@@ -123,7 +126,7 @@ class App extends React.Component {
       img.style.width = '400px';
       imgDiv.appendChild(img);
 
-      document.getElementById('test-result').appendChild(imgDiv);
+      document.body.appendChild(imgDiv);
       closeBtn.addEventListener('click', () => imgDiv.remove());
     });
   }

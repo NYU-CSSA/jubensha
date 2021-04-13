@@ -4,4 +4,14 @@
   position: absolute;
   top: 0;
   background-color: white;
+  text-align: right;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.qrcode{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
