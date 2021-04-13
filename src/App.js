@@ -54,11 +54,20 @@ class App extends React.Component {
           <div className='card invitation'>
             <div className='card-body'>
               <div className='invitation-title'>
-                <p className='card-title invitation-title'>活动名称</p>
+                <h3 className='card-title invitation-title'>
+                  曼哈顿档案：夜幕降临
+                </h3>
+                <p className='card-title invitation-subtitle'>
+                  体验以纽约为背景的剧本杀~
+                </p>
               </div>
               <div className='invitation-text'>
                 <p className='card-text'>
-                  这是聚集脑力风暴的智者们的天堂，xxx（还没想好）
+                  NYUCSSA诚意推出全新线上剧本杀活动
+                  3.23～3.25【曼哈顿档案：夜幕降临】。本次活动共有三个剧本，每个剧本由6~7个角色组成。我们将根据您本次的测试结果，提供相似的剧本角色供您报名时进行参考。通过本次活动，您将结识更多有趣的小伙伴，并与他们一起斗智斗勇，合作办案。本次活动人数有限，赶快抓紧时间报名吧！让我们在这个春天，和同伴们一起探索纽约的真相吧~
+                </p>
+                <p className='note'>
+                  注：报名本次活动请扫描 结果页下方 的二维码
                 </p>
               </div>
               <div className='answers'>
@@ -107,10 +116,9 @@ class App extends React.Component {
   }
 
   generate_image() {
-    if(document.getElementById('canvasImg')!=null)
-      return;
-      const element = document.getElementById('test-result');
-    html2canvas(element,{ height: 900}).then(function (canvas) {
+    if (document.getElementById('canvasImg') != null) return;
+    const element = document.getElementById('test-result');
+    html2canvas(element, { height: 900 }).then(function (canvas) {
       let base64Url = canvas.toDataURL();
       const imgDiv = document.createElement('div');
       imgDiv.className = 'img-container';
