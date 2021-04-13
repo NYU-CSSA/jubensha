@@ -99,63 +99,59 @@ class App extends React.Component {
 
   generate_result() {
     const { score } = this.state;
-      if (score >= 29 && score <= 35)
-        return results[0];
-      else if( score >= 23 && score <= 28)
-        return  results[1];
-      else if(score >= 17 && score <= 22)
-        return results[2];
-      else if (score >= 10 && score <= 16)
-        return  results[3];
-      else
-        return results[4];
+    if (score >= 29 && score <= 35) return results[0];
+    else if (score >= 23 && score <= 28) return results[1];
+    else if (score >= 17 && score <= 22) return results[2];
+    else if (score >= 10 && score <= 16) return results[3];
+    else return results[4];
   }
 
-  generate_image(){
-    html2canvas(document.getElementById('test-result')).then(function(canvas) {
+  generate_image() {
+    html2canvas(document.getElementById('test-result')).then(function (canvas) {
       let base64Url = canvas.toDataURL();
       const imgDiv = document.createElement('div');
-      imgDiv.className = 'img-container'
+      imgDiv.className = 'img-container';
 
       const closeBtn = document.createElement('button');
-      closeBtn.textContent='close';
-      closeBtn.className='close-btn';
+      closeBtn.textContent = 'close';
+      closeBtn.className = 'close-btn';
       imgDiv.appendChild(closeBtn);
 
       const img = document.createElement('img');
-      img.id = "canvasImg";
-      img.src=base64Url;
-      img.style.width='400px';
+      img.id = 'canvasImg';
+      img.src = base64Url;
+      img.style.width = '400px';
       imgDiv.appendChild(img);
 
       document.getElementById('test-result').appendChild(imgDiv);
-      closeBtn.addEventListener('click',()=>imgDiv.remove())
-
-  })
+      closeBtn.addEventListener('click', () => imgDiv.remove());
+    });
   }
 
   render_finished() {
-    const result=this.generate_result();
-    const places = result.place.reduce((prev,cur)=>prev=prev + ", "+cur)
+    const result = this.generate_result();
+    const places = result.place.reduce(
+      (prev, cur) => (prev = prev + ', ' + cur),
+    );
     return (
       <div className='container'>
         <div className='container test-result' id='test-result'>
           <h3>与您最符合的食物是：</h3>
           <h1 className='mytitle'>{result.food}</h1>
           <h4>推荐餐厅：</h4>
-          <h2 >{places}</h2>
+          <h2>{places}</h2>
           <div className='desc'>{result.desc}</div>
           <br />
           <div className='qrcode'>
-          <div>
-            <p>扫二维码查看剧本简介</p>
-          </div>
-          <div>
-            <p>扫二维码立即报名活动</p>
+            <div>
+              <p>扫二维码查看剧本简介</p>
+            </div>
+            <div>
+              <p>扫二维码立即报名活动</p>
+            </div>
           </div>
         </div>
-        </div>
-        <button onClick={()=>this.generate_image()}>shengchengtup</button>
+        <button onClick={() => this.generate_image()}>生成图片</button>
         <div className='container roles'>
           <h3>你最适合的角色：</h3>
           {plays.map((name, i) => (
@@ -164,9 +160,8 @@ class App extends React.Component {
               <h5>{result.roles[i * 2]}</h5>
               <h5>{result.roles[i * 2 + 1]}</h5>
             </div>
-          ))} 
+          ))}
         </div>
-        
       </div>
     );
   }
@@ -190,7 +185,6 @@ class App extends React.Component {
     );
   }
 
-
   render() {
     if (this.state.state === 'start') {
       return this.render_start();
@@ -200,7 +194,7 @@ class App extends React.Component {
       return this.render_question();
     } else if (this.state.state === 'invitation') {
       return this.render_invitation();
-    } 
+    }
   }
 }
 
