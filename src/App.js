@@ -1,4 +1,5 @@
 import React from 'react';
+import html2canvas from 'html2canvas';
 import './App.css';
 import { questions, results, plays } from './constants';
 
@@ -110,72 +111,27 @@ class App extends React.Component {
         return results[4];
   }
 
-  send_result() {
-    if (
-      this.state.name === '' ||
-      this.state.email === '' ||
-      this.state.sex === '' ||
-      this.state.wechat === ''
-    ) {
-      alert('请正确填写所有信息');
-      return;
-    }
-    if (!this.state.email.endsWith('@nyu.edu')) {
-      alert('仅限NYU学生参加，请使用NYU邮箱');
-      return;
-    }
+  generate_image(){
+    html2canvas(document.getElementById('test-result')).then(function(canvas) {
+      let base64Url = canvas.toDataURL();
+      const imgDiv = document.createElement('div');
+      imgDiv.className = 'img-container'
 
-    let answers_map = {};
-    for (let i in this.state.answers) {
-      let answer = this.state.answers[i];
-      answers_map[answer['question_num']] = answer['ans_num'];
-    }
-    for (let i in questions) {
-      if (!(i in answers_map)) {
-        answers_map[i] = -1;
-      }
-    }
+      const closeBtn = document.createElement('button');
+      closeBtn.textContent='close';
+      closeBtn.className='close-btn';
+      imgDiv.appendChild(closeBtn);
 
-    answers_map['name'] = this.state.name;
-    answers_map['email'] = this.state.email;
-    answers_map['sex'] = this.state.sex;
-    answers_map['wechat'] = this.state.wechat;
+      const img = document.createElement('img');
+      img.id = "canvasImg";
+      img.src=base64Url;
+      img.style.width='400px';
+      imgDiv.appendChild(img);
 
-    let result = JSON.stringify(answers_map);
-    console.log(result);
+      document.getElementById('test-result').appendChild(imgDiv);
+      closeBtn.addEventListener('click',()=>imgDiv.remove())
 
-    var xhr0 = new XMLHttpRequest();
-    xhr0.addEventListener('load', () => {
-      console.log(xhr0.responseText);
-      if (xhr0.responseText.includes('already registered')) {
-        alert('您的邮箱已经报名过了!');
-      } else {
-        var xhr = new XMLHttpRequest();
-        xhr.addEventListener('load', () => {
-          console.log(xhr.responseText);
-          alert('报名成功！请等待CSSA工作人员联系~');
-        });
-        console.log(result);
-        xhr.open(
-          'GET',
-          'https://www.cssanyu.org/2020/questionnaire.php?data=' +
-            encodeURIComponent(result),
-        );
-        // xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
-        // xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-        xhr.send();
-      }
-    });
-    xhr0.open(
-      'GET',
-      'https://www.cssanyu.org/2020/check_exist.php?data=' +
-        encodeURIComponent(result),
-    );
-    // xhr0.setRequestHeader('Access-Control-Allow-Headers', '*');
-    // xhr0.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr0.send();
-
-    this.setState({ state: 'finished' });
+  })
   }
 
   render_finished() {
@@ -183,14 +139,23 @@ class App extends React.Component {
     const places = result.place.reduce((prev,cur)=>prev=prev + ", "+cur)
     return (
       <div className='container'>
-        <div className='container test-result'>
+        <div className='container test-result' id='test-result'>
           <h3>与您最符合的食物是：</h3>
           <h1 className='mytitle'>{result.food}</h1>
           <h4>推荐餐厅：</h4>
           <h2 >{places}</h2>
           <div className='desc'>{result.desc}</div>
           <br />
+          <div className='qrcode'>
+          <div>
+            <p>扫二维码查看剧本简介</p>
+          </div>
+          <div>
+            <p>扫二维码立即报名活动</p>
+          </div>
         </div>
+        </div>
+        <button onClick={()=>this.generate_image()}>shengchengtup</button>
         <div className='container roles'>
           <h3>你最适合的角色：</h3>
           {plays.map((name, i) => (
@@ -201,14 +166,7 @@ class App extends React.Component {
             </div>
           ))} 
         </div>
-        <div className='qrcode'>
-          <div>
-            <p>扫二维码查看剧本简介</p>
-          </div>
-          <div>
-            <p>扫二维码立即报名活动</p>
-          </div>
-        </div>
+        
       </div>
     );
   }
