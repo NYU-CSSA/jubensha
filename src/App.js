@@ -179,7 +179,7 @@ class App extends React.Component {
             <p>扫二码查看剧本简介</p>
 
             <img
-              src='http://192.168.1.205:3000/wx-qrcode.png'
+              src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'
             ></img>
           </div>
@@ -187,7 +187,7 @@ class App extends React.Component {
             <p>扫二维码立即报名活动</p>
 
             <img
-              src='http://192.168.1.205:3000/wx-qrcode.png'
+              src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'
             ></img>
           </div>
@@ -230,7 +230,7 @@ class App extends React.Component {
             <p>扫二码查看剧本简介</p>
 
             <img
-              src='http://192.168.1.205:3000/wx-qrcode.png'
+              src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'
             ></img>
           </div>
@@ -238,7 +238,7 @@ class App extends React.Component {
             <p>扫二维码立即报名活动</p>
 
             <img
-              src='http://192.168.1.205:3000/wx-qrcode.png'
+              src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'
             ></img>
           </div>
