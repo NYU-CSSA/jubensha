@@ -204,6 +204,7 @@ html {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding: 0 30px;
 }
 
 .test-result,
@@ -250,6 +251,7 @@ html {
   border: 1px dashed;
   color: #372328;
   font-size: 16px;
+  margin-top: 20px;
 }
 
 .roles-container {
