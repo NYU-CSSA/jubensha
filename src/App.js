@@ -158,7 +158,6 @@ class App extends React.Component {
             ))}
           </div>
         </div>
-
         <div className='btn-class' id='btn-class'>
           <button
             onClick={() => this.generate_image()}
@@ -173,7 +172,6 @@ class App extends React.Component {
             查看结果
           </button>
         </div>
-
         <div className='qrcode'>
           <div>
             <p>扫二码查看剧本简介</p>
@@ -198,18 +196,18 @@ class App extends React.Component {
 
   render_finished() {
     const result = this.generate_result();
-    const places = result.place.reduce(
-      (prev, cur) => (prev = prev + ', ' + cur),
-    );
     return (
       <div className='result-container' id='result-container'>
         <div className='container test-result' id='test-result'>
           <h3>与您最符合的食物是：</h3>
           <h1 className='mytitle'>{result.food}</h1>
           <h4>推荐餐厅：</h4>
-          <h2>{places}</h2>
+          <div className='places'>
+            {result.place.map((val, i) => (
+              <h2 key={i}>{val}</h2>
+            ))}
+          </div>
           <div className='desc'>{result.desc}</div>
-          <br />
         </div>
         <div className='btn-class' id='btn-class'>
           <button
@@ -228,7 +226,6 @@ class App extends React.Component {
         <div className='qrcode'>
           <div>
             <p>扫二码查看剧本简介</p>
-
             <img
               src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'

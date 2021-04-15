@@ -45,11 +45,11 @@ html {
 }
 
 .test-start h2 {
-  font-size: 60px;
+  font-size: 50px;
   color: #ff8c62;
 }
 .test-start h3 {
-  font-size: 50px;
+  font-size: 40px;
   color: #db3442;
 }
 
@@ -61,7 +61,7 @@ html {
   margin: 10px;
   font-size: x-large;
   margin-top: 20%;
-  font-size: 40px;
+  font-size: 30px;
 }
 
 .start-btn:hover,
@@ -76,11 +76,16 @@ html {
   background-image: url('https://www.cssanyu.org/2021/jubensha/bg2.jpg');
   background-repeat: no-repeat;
   background-position: center bottom;
-  background-size: 100% 100%;
+  background-size: 140% 100%;
   background-attachment: fixed;
   text-align: center;
-  overflow: hidden;
+  overflow-y: scroll;
   padding: 30px 50px;
+}
+
+.answers,
+.card-question {
+  margin: auto;
 }
 
 .card-question h4 {
@@ -114,7 +119,7 @@ html {
   width: 90%;
   text-align: left;
   font-family: 'mht';
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 900;
   color: #503c2c;
 }
@@ -139,11 +144,12 @@ html {
   height: 100vh;
   background-image: url('https://www.cssanyu.org/2021/jubensha/bg3.jpeg');
   background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: 100% 100%;
+  background-position: center;
+  background-size: 100% 105%;
   background-attachment: fixed;
   text-align: center;
-  overflow: hidden;
+  overflow-y: scroll;
+  padding-bottom: 20px;
 }
 
 .card.invitation {
@@ -154,7 +160,6 @@ html {
 
 .invitation-text {
   display: block;
-  overflow: scroll;
   font-size: 19px;
 }
 
@@ -172,9 +177,9 @@ html {
   font-weight: 900;
 }
 .note {
-  font-size: 15px;
+  font-size: 12px;
   font-weight: lighter;
-  color: #7e695b;
+  color: #fe704b;
 }
 
 .inv-btn,
@@ -195,18 +200,26 @@ html {
   margin-top: 10px;
 }
 
+.result-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .test-result,
 .roles {
-  margin-top: 30%;
   text-align: center;
   font-family: 'ssyst';
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 20%;
 }
 .test-result h3,
 .roles h3 {
   color: #d22939;
   font-size: 24px;
   letter-spacing: 3px;
-
   border-bottom: 0.5px solid #080727;
 }
 
@@ -214,8 +227,8 @@ html {
   color: #080727;
   letter-spacing: 3px;
   font-weight: bold;
-  margin-bottom: 40px;
-  font-size: 50px;
+  margin-bottom: 20px;
+  font-size: 40px;
 }
 
 .test-result h4 {
@@ -227,33 +240,33 @@ html {
 .test-result h2 {
   color: #0f0a22;
   font-weight: bold;
-  font-size: 28px;
-  margin-bottom: 40px;
+  font-size: 22px;
 }
 
 .desc {
-  padding: 20px 20px;
+  padding: 10px 20px;
   text-align: left;
   letter-spacing: 3px;
   border: 1px dashed;
   color: #372328;
-  margin: 0 20px;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .roles-container {
-  margin-top: 30px;
   letter-spacing: 3px;
+  margin-top: 20px;
 }
 
 .roles-container div {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .roles-container div h2 {
-  margin-bottom: 10px;
+  font-size: 28px;
 }
-
+.roles-container div h5 {
+  font-size: 18px;
+}
 .btn-class {
   display: flex;
   flex-direction: row-reverse;
@@ -275,9 +288,8 @@ html {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  position: fixed;
   width: 100%;
-  bottom: 30px;
+  font-size: 12px;
 }
 
 .qrcode img {
