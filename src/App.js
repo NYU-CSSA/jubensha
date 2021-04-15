@@ -63,22 +63,20 @@ class App extends React.Component {
               </div>
               <div className='invitation-text'>
                 <p className='card-text'>
-                  NYUCSSA诚意推出全新线上剧本杀活动
-                  3.23～3.25 【曼哈顿档案：夜幕降临】。本次活动共有三个剧本，每个剧本由6~7个角色组成。我们将根据您本次的测试结果，提供相似的剧本角色供您报名时进行参考。通过本次活动，您将结识更多有趣的小伙伴，并与他们一起斗智斗勇，合作办案。本次活动人数有限，赶快抓紧时间报名吧！让我们在这个春天，和同伴们一起探索纽约的真相吧~
+                  NYUCSSA诚意推出全新线上剧本杀活动 3.23～3.25
+                  【曼哈顿档案：夜幕降临】。本次活动共有三个剧本，每个剧本由6~7个角色组成。我们将根据您本次的测试结果，提供相似的剧本角色供您报名时进行参考。通过本次活动，您将结识更多有趣的小伙伴，并与他们一起斗智斗勇，合作办案。本次活动人数有限，赶快抓紧时间报名吧！让我们在这个春天，和同伴们一起探索纽约的真相吧~
                 </p>
-                <p className='note'>
-                  注：报名本次活动请扫描结果页下方的二维码
-                </p>
+                <p className='note'>注：报名本次活动请扫描结果页下方的二维码</p>
               </div>
-                <button
-                  type='button'
-                  className='btn btn-primary inv-btn'
-                  onClick={() => {
-                    this.setState({ state: 'finished' });
-                  }}
-                >
-                  查看结果
-                </button>
+              <button
+                type='button'
+                className='btn btn-primary inv-btn'
+                onClick={() => {
+                  this.setState({ state: 'finished' });
+                }}
+              >
+                查看结果
+              </button>
             </div>
           </div>
         </div>
@@ -118,6 +116,8 @@ class App extends React.Component {
   generate_image() {
     if (document.getElementById('canvasImg') != null) return;
     const element = document.getElementById('result-container');
+    const btns = document.getElementById('btn-class');
+    btns.style.visibility = 'hidden';
     html2canvas(element).then(function (canvas) {
       let base64Url = canvas.toDataURL();
       const imgDiv = document.createElement('div');
@@ -134,46 +134,66 @@ class App extends React.Component {
       imgDiv.appendChild(img);
 
       document.body.appendChild(imgDiv);
-      closeBtn.addEventListener('click', () => imgDiv.remove());
+      closeBtn.addEventListener('click', () => {
+        imgDiv.remove();
+        btns.style.visibility = 'visible';
+      });
     });
   }
 
-  render_roles(){
-        const result = this.generate_result();
+  render_roles() {
+    const result = this.generate_result();
 
-    return(
-            <div className='result-container' id='result-container'>
-               <div className='container roles'>
+    return (
+      <div className='result-container' id='result-container'>
+        <div className='container roles'>
           <h3>你最适合的角色：</h3>
           <div className='roles-container'>
-          {plays.map((name, i) => (
-            <div key={i}>
-              <h2>{`剧本${i + 1}：${name}`}</h2>
-              <h5>{result.roles[i * 2]}</h5>
-              <h5>{result.roles[i * 2 + 1]}</h5>
-            </div>
-          ))}</div>
+            {plays.map((name, i) => (
+              <div key={i}>
+                <h2>{`剧本${i + 1}：${name}`}</h2>
+                <h5>{result.roles[i * 2]}</h5>
+                <h5>{result.roles[i * 2 + 1]}</h5>
+              </div>
+            ))}
+          </div>
         </div>
 
-<div className='btn-class'>
-          <button onClick={() => this.generate_image()} className='btn generate_img'>生成图片</button>
-          <button onClick={() => this.setState({state:'finished'})} className='btn role_result'>查看结果</button>
+        <div className='btn-class' id='btn-class'>
+          <button
+            onClick={() => this.generate_image()}
+            className='btn generate_img'
+          >
+            生成图片
+          </button>
+          <button
+            onClick={() => this.setState({ state: 'finished' })}
+            className='btn role_result'
+          >
+            查看结果
+          </button>
         </div>
 
         <div className='qrcode'>
-            <div>
-                            <p>扫二码查看剧本简介</p>
+          <div>
+            <p>扫二码查看剧本简介</p>
 
-              <img src="http://192.168.1.205:3000/wx-qrcode.png" alt='qrcode'></img>
-            </div>
-            <div>
-                            <p>扫二维码立即报名活动</p>
-
-                 <img src="http://192.168.1.205:3000/wx-qrcode.png" alt='qrcode'></img>
-            </div>
+            <img
+              src='http://192.168.1.205:3000/wx-qrcode.png'
+              alt='qrcode'
+            ></img>
           </div>
-</div>
-    )
+          <div>
+            <p>扫二维码立即报名活动</p>
+
+            <img
+              src='http://192.168.1.205:3000/wx-qrcode.png'
+              alt='qrcode'
+            ></img>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render_finished() {
@@ -190,24 +210,39 @@ class App extends React.Component {
           <h2>{places}</h2>
           <div className='desc'>{result.desc}</div>
           <br />
-         
         </div>
-        <div className='btn-class'>
-          <button onClick={() => this.generate_image()} className='btn generate_img'>生成图片</button>
-          <button onClick={() => this.setState({state:'roles'})} className='btn role_result'>查看角色</button>
+        <div className='btn-class' id='btn-class'>
+          <button
+            onClick={() => this.generate_image()}
+            className='btn generate_img'
+          >
+            生成图片
+          </button>
+          <button
+            onClick={() => this.setState({ state: 'roles' })}
+            className='btn role_result'
+          >
+            查看角色
+          </button>
         </div>
-         <div className='qrcode'>
-            <div>
-                            <p>扫二码查看剧本简介</p>
+        <div className='qrcode'>
+          <div>
+            <p>扫二码查看剧本简介</p>
 
-              <img src="http://192.168.1.205:3000/wx-qrcode.png" alt='qrcode'></img>
-            </div>
-            <div>
-                            <p>扫二维码立即报名活动</p>
-
-                 <img src="http://192.168.1.205:3000/wx-qrcode.png" alt='qrcode'></img>
-            </div>
+            <img
+              src='http://192.168.1.205:3000/wx-qrcode.png'
+              alt='qrcode'
+            ></img>
           </div>
+          <div>
+            <p>扫二维码立即报名活动</p>
+
+            <img
+              src='http://192.168.1.205:3000/wx-qrcode.png'
+              alt='qrcode'
+            ></img>
+          </div>
+        </div>
       </div>
     );
   }
@@ -216,10 +251,10 @@ class App extends React.Component {
     return (
       <div className='question-container'>
         <div className='card-question'>
-            <h4>Question {this.state.current_question}</h4>
-            <h5 className='card-title'>
-              {questions[this.state.current_question][0]}
-            </h5>
+          <h4>Question {this.state.current_question}</h4>
+          <h5 className='card-title'>
+            {questions[this.state.current_question][0]}
+          </h5>
         </div>
         <div className='answers'>
           {questions[this.state.current_question][1].map(
@@ -235,7 +270,7 @@ class App extends React.Component {
       return this.render_start();
     } else if (this.state.state === 'finished') {
       return this.render_finished();
-    } else if(this.state.state==='roles'){
+    } else if (this.state.state === 'roles') {
       return this.render_roles();
     } else if (this.state.state === 'testing') {
       return this.render_question();
