@@ -50,35 +50,46 @@ class App extends React.Component {
   render_invitation() {
     return (
       <div className='invitation'>
-        <div className='container'>
-          <div className='card invitation'>
-            <div className='card-body'>
-              <div className='invitation-title'>
-                <h3 className='card-title invitation-title'>
-                  曼哈顿档案：夜幕降临
-                </h3>
-                <h5 className='card-title invitation-subtitle'>
-                  体验以纽约为背景的剧本杀~
-                </h5>
-              </div>
-              <div className='invitation-text'>
-                <p className='card-text'>
-                  NYUCSSA诚意推出全新线上剧本杀活动 3.23～3.25
-                  【曼哈顿档案：夜幕降临】。本次活动共有三个剧本，每个剧本由6~7个角色组成。我们将根据您本次的测试结果，提供相似的剧本角色供您报名时进行参考。通过本次活动，您将结识更多有趣的小伙伴，并与他们一起斗智斗勇，合作办案。本次活动人数有限，赶快抓紧时间报名吧！让我们在这个春天，和同伴们一起探索纽约的真相吧~
-                </p>
-                <p className='note'>注：报名本次活动请扫描结果页下方的二维码</p>
-              </div>
-              <button
-                type='button'
-                className='btn btn-primary inv-btn'
-                onClick={() => {
-                  this.setState({ state: 'finished' });
-                }}
-              >
-                查看结果
-              </button>
-            </div>
+        <div className='card-body'>
+          <div className='invitation-title'>
+            <h3 className='invitation-title-one'>Invitation</h3>
+            <h3 className='card-title invitation-title'>
+              曼哈顿档案：夜幕降临
+            </h3>
+            <p className='card-title invitation-subtitle'>
+              体验以纽约为背景的剧本杀~
+            </p>
           </div>
+          <div className='invitation-text'>
+            <p className='card-text'>
+              &emsp;NYUCSSA诚意推出全新线上剧本杀活动:{' '}
+              <b style={{ color: '#fe704b' }}>
+                3.23～3.25 【曼哈顿档案：夜幕降临】
+              </b>
+              。<br />
+              <br />
+              &emsp;本次活动共有三个剧本，每个剧本由6~7个角色组成。我们将
+              <span style={{ color: '#fe704b' }}>根据您本次的测试结果</span>
+              ，提供<span style={{ color: '#fe704b' }}>与您匹配的角色</span>
+              供您报名活动时进行参考～
+              <br />
+              <br />
+              &emsp;通过本次活动，您将结识更多有趣的小伙伴，并与他们一起斗智斗勇，合作办案。
+              <br />
+              <br />
+              &emsp;本次活动人数有限，赶快抓紧时间报名吧！让我们在这个春天，和同伴们一起探索纽约的真相吧~
+            </p>
+            <p className='note'>注：报名本次活动请扫描结果页下方的二维码</p>
+          </div>
+          <button
+            type='button'
+            className='btn btn-primary inv-btn'
+            onClick={() => {
+              this.setState({ state: 'finished' });
+            }}
+          >
+            查看结果
+          </button>
         </div>
       </div>
     );
