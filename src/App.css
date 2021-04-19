@@ -163,11 +163,11 @@ html {
   text-align: center;
   padding-bottom: 20px;
   overflow-y: scroll;
+  font-family: 'szt';
 }
 
 .invitation {
   border: none;
-  font-family: 'szt';
   color: #492d24;
 }
 
@@ -208,6 +208,8 @@ html {
 .inv-btn:hover,
 .inv-btn:active {
   width: 50%;
+  font-weight: bold;
+  font-size: 20px;
   color: #f8ebd4;
   background-color: rgba(74, 46, 37, 0.8);
   border: #f8ebd4;
@@ -218,14 +220,13 @@ html {
 .result-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 0 30px;
 }
 
 .test-result,
 .roles {
   text-align: center;
-  font-family: 'ssyst';
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -236,20 +237,18 @@ html {
   color: #d22939;
   font-size: 24px;
   letter-spacing: 3px;
-  border-bottom: 0.5px solid #080727;
 }
 
 .test-result h1 {
   color: #080727;
   letter-spacing: 3px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 30px;
 }
 
 .test-result h4 {
   color: #ff8959;
-  border-bottom: 0.5px solid #0f0a22;
   letter-spacing: 5px;
 }
 
@@ -266,7 +265,7 @@ html {
   border: 1px dashed;
   color: #372328;
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .roles-container {
@@ -287,8 +286,11 @@ html {
 .btn-class {
   display: flex;
   flex-direction: row-reverse;
-  font-family: 'ssyst';
   justify-content: space-around;
+}
+
+.btn-class button {
+  font-size: smaller;
 }
 
 .role_result,
@@ -307,7 +309,7 @@ html {
   justify-content: space-evenly;
   width: 100%;
   font-size: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .qrcode img {

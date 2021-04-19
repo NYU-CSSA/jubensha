@@ -64,7 +64,7 @@ class App extends React.Component {
             <p className='card-text'>
               &emsp;NYUCSSA诚意推出全新线上剧本杀活动:{' '}
               <b style={{ color: '#fe704b' }}>
-                3.23～3.25 【曼哈顿档案：夜幕降临】
+                4.23～4.25 【曼哈顿档案：夜幕降临】
               </b>
               。<br />
               <br />
@@ -185,8 +185,7 @@ class App extends React.Component {
         </div>
         <div className='qrcode'>
           <div>
-            <p>扫二码查看剧本简介</p>
-
+            <p>扫二码查看活动详情</p>
             <img
               src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'
@@ -194,9 +193,8 @@ class App extends React.Component {
           </div>
           <div>
             <p>扫二维码立即报名活动</p>
-
             <img
-              src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
+              src='https://www.cssanyu.org/2021/jubensha/qrcode_register.png'
               alt='qrcode'
             ></img>
           </div>
@@ -210,13 +208,17 @@ class App extends React.Component {
     return (
       <div className='result-container' id='result-container'>
         <div className='container test-result' id='test-result'>
-          <h3>与您最符合的食物是：</h3>
-          <h1 className='mytitle'>{result.food}</h1>
-          <h4>推荐餐厅：</h4>
-          <div className='places'>
-            {result.place.map((val, i) => (
-              <h2 key={i}>{val}</h2>
-            ))}
+          <div className='food'>
+            <h3>与您最符合的食物是：</h3>
+            <h1 className='mytitle'>{result.food}</h1>
+          </div>
+          <div className='place'>
+            <h4>推荐餐厅：</h4>
+            <div className='places'>
+              {result.place.map((val, i) => (
+                <h2 key={i}>{val}</h2>
+              ))}
+            </div>
           </div>
           <div className='desc'>{result.desc}</div>
         </div>
@@ -236,7 +238,7 @@ class App extends React.Component {
         </div>
         <div className='qrcode'>
           <div>
-            <p>扫二码查看剧本简介</p>
+            <p>扫二码查看活动详情</p>
             <img
               src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
               alt='qrcode'
@@ -244,9 +246,8 @@ class App extends React.Component {
           </div>
           <div>
             <p>扫二维码立即报名活动</p>
-
             <img
-              src='https://www.cssanyu.org/2021/jubensha/wx-qrcode.png'
+              src='https://www.cssanyu.org/2021/jubensha/qrcode_register.png'
               alt='qrcode'
             ></img>
           </div>
